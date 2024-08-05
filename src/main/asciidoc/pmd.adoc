@@ -1,0 +1,63 @@
+<<PmdReportScanner>>
+[[PmdReportScanner]]
+
+== Scanner for PMD report files
+Accepts all files with the given file name (default: pmd.xml) or
+being in a directory named 'pmd' and end with '.xml'.
+
+.Configuration parameters
+[options="header"]
+|====
+| Name                                      | Description
+| jqassistant.plugin.pmd.filename           | Optional: file name of the PMD XML report file. Default: pmd.xml
+| jqassistant.plugin.pmd.dirname            | Optional: name of the directory containing an XML. Default: pmd
+|====
+
+=== :Pmd:File:Report
+Represents a PMD report file.
+
+.Relations
+[options="header"]
+|====
+| Name              | Target label(s)           | Cardinality | Description
+| HAS_FILE          | <<:Pmd:File>>             | 0..n        | A file containing PMD issues
+|====
+
+=== :Pmd:File
+Represents a physical file with full path in a PMD report.
+
+.Properties
+[options="header"]
+|====
+| Name              | Description
+| name              | The file name.
+|====
+
+.Relations
+[options="header"]
+|====
+| Name              | Target label(s)           | Cardinality | Description
+| HAS_VIOLATION     | <<:Pmd:Violation>>        | 0..n        | The PMD violations of this file.
+|====
+
+=== :Pmd:Violation
+Represents a PMD violation.
+
+.Properties
+[options="header"]
+|====
+| Name              | Description
+| beginline         | Source file begin line
+| endline           | Source file end line
+| begincolumn       | Source file begin column
+| endcolumn         | Source file end column
+| rule              | PMD rule name.
+| ruleset           | Name of PMD rule set, e.g. 'Unnecessary'.
+| package           | Name of the Java package where the violation was found.
+| className         | Name of the Java class where the violation was found.
+| method            | Name of the Java method where the violation was found.
+| variable          | Name of the Java variable where the violation was found.
+| externalInfoUrl   | Link to PMD homepage where to find more information about the PMD rule.
+| priority          | Violation priority, e.g. 4.
+| message           | Rule violation message.
+|====
